@@ -1,0 +1,25 @@
+[package]
+name = "fffx"
+version = "0.1.0"
+edition = "2021"
+authors = ["Joseph Guhlin <joseph.guhlin@gmail.com>"]
+license = "MIT OR Apache-2.0"
+description = "Another fasta/q/x file format parser. Well fuzzed."
+repository = "https://github.com/jguhlin/fffx"
+categories = ["science"]
+keywords = ["bioinformatics", "fasta", "compression", "fastq"]
+exclude = [
+	"test_data/*.fasta",
+	"*.profdata",
+]
+
+[dependencies]
+static_assertions = "1.1.0"
+bytelines = "2.4.0"
+simdutf8 = "0.1.4"
+#bumpalo = "3.11.0"
+flate2 = {version = "1.0.24", features = ["zlib-ng"], default-features = false}
+
+[dev-dependencies]
+criterion = "0.4.0"
+humansize = "2.0.0"
