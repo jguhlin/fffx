@@ -1,0 +1,3 @@
+# Yet another fasta/q/x parser
+
+Well fuzzed though....
