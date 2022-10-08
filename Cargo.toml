@@ -13,10 +13,15 @@ exclude = [
 	"*.profdata",
 ]
 
+[[bench]]
+name = "parse_fasta" 
+harness = false
+
 [dependencies]
 static_assertions = "1.1.0"
 bytelines = "2.4.0"
 simdutf8 = "0.1.4"
+
 #bumpalo = "3.11.0"
 flate2 = {version = "1.0.24", features = ["zlib-ng"], default-features = false}
 

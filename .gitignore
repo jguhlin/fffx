@@ -1,2 +1,5 @@
 /target
 /Cargo.lock
+*.fasta
+bench_data
+test_data

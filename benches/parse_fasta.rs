@@ -6,7 +6,7 @@ use fffx::*;
 
 fn criterion_benchmark(c: &mut Criterion) {
     let seq = include_str!("../bench_data/uniprot_sprot.fasta");
-    let bufreader = std::io::BufReader::new(seq.as_bytes());
+    let mut bufreader = std::io::BufReader::new(seq.as_bytes());
 
     let mut group = c.benchmark_group("Parse UniProt SwissProt FASTA File");
     group.throughput(criterion::Throughput::Bytes(seq.len() as u64));
