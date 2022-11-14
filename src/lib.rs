@@ -11,7 +11,7 @@ pub mod utils;
 pub use fasta::Fasta;
 pub use fastq::Fastq;
 
-#[derive(PartialEq, Eq, Clone, Debug, Default, Send)]
+#[derive(PartialEq, Eq, Clone, Debug, Default)]
 pub struct Sequence {
     pub sequence: Option<Vec<u8>>,
     pub scores: Option<Vec<u8>>,
