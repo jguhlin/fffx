@@ -14,3 +14,8 @@ Found 11 outliers among 100 measurements (11.00%)
   4 (4.00%) low mild 4 (4.00%) high mild
   3 (3.00%) high severe
 ```
+
+## Changelog
+
+### 0.1.2
+Change zlib-ng for flate2 to just zlib.
