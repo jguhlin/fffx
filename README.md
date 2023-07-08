@@ -17,5 +17,8 @@ Found 11 outliers among 100 measurements (11.00%)
 
 ## Changelog
 
+### 0.1.3
+Pin bytelines to 2.2.2 to remove the tokio/futures dependency as it is not used here.
+
 ### 0.1.2
 Change zlib-ng for flate2 to just zlib.
