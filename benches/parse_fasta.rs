@@ -6,6 +6,8 @@ fn criterion_benchmark(c: &mut Criterion) {
     let seq = include_str!("../bench_data/uniprot_sprot.fasta");
     let mut bufreader = std::io::BufReader::new(seq.as_bytes());
 
+    let mut group = c.benchmark_group("Parse UniProt SwissProt FASTA File");
+
     group.bench_function("needletail_parse_fasta", |b| {
         b.iter(|| {
             let mut fasta = needletail::parse_fastx_reader(black_box(&mut bufreader)).expect("Unable to parse");
@@ -17,8 +19,7 @@ fn criterion_benchmark(c: &mut Criterion) {
 
     let seq = include_str!("../bench_data/uniprot_sprot.fasta");
     let mut bufreader = std::io::BufReader::new(seq.as_bytes());
-
-    let mut group = c.benchmark_group("Parse UniProt SwissProt FASTA File");
+    
     group.throughput(criterion::Throughput::Bytes(seq.len() as u64));
     group.bench_function("fffx_parse_fasta", |b| {
         b.iter(|| {
