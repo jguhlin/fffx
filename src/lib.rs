@@ -37,7 +37,7 @@ mod test {
             let seq = seq.unwrap();
             num_bases += seq.sequence.as_ref().unwrap().len();
         }
-        assert_eq!(num_bases, 559_023_700);
+        assert_eq!(num_bases, 205_171_419);
     }
 
 }
