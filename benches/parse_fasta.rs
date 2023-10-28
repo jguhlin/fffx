@@ -29,7 +29,7 @@ fn criterion_benchmark(c: &mut Criterion) {
             let fasta = fffx::fasta::Fasta::from_buffer(black_box(&mut bufreader));
             for seq in fasta {
                 let seq = seq.unwrap();
-                num_bases += seq.len();
+                num_bases += seq.sequence.as_ref().unwrap().len();
 
             }
         })
