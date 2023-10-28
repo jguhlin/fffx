@@ -47,7 +47,7 @@ fn criterion_benchmark(c: &mut Criterion) {
 
     let mut group = c.benchmark_group("Parse biofast-data-v1/M_abscessus_HiSeq.fq FASTQ");
     let file_size = std::fs::metadata("bench_data/biofast-data-v1/M_abscessus_HiSeq.fq").unwrap().len();
-    group.throughput(file_size);
+    group.throughput(criterion::Throughput::Bytes(file_size));
 
     group.bench_function("needletail_parse_fastq", |b| {
         b.iter(|| {
