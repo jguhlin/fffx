@@ -20,7 +20,7 @@ fn criterion_benchmark(c: &mut Criterion) {
     group.bench_function("needletail_parse_fasta", |b| {
         b.iter(|| {
             let mut fasta = needletail::parse_fastx_reader(black_box(&mut bufreader));
-            while let Some(r) = fastx_reader.next() {
+            while let Some(r) = fasta.next() {
                 let _ = r.unwrap();
             }
         })
