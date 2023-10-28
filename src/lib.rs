@@ -20,3 +20,24 @@ pub struct Sequence {
     /// Primarily used downstream, but when used for random access this is the offset from the start of the sequence
     pub offset: usize,
 }
+
+#[cfg(test)]
+mod test {
+    // Using this, count the total number of bases
+    use super::*;
+    use std::io::BufReader;
+
+    #[test]
+    fn fasta_test() {
+        let seq = include_str!("../bench_data/uniprot_sprot.fasta");
+        let mut bufreader = BufReader::new(seq.as_bytes());
+        let mut num_bases = 0;
+        let fasta = Fasta::from_buffer(&mut bufreader);
+        for seq in fasta {
+            let seq = seq.unwrap();
+            num_bases += seq.sequence.as_ref().unwrap().len();
+        }
+        assert_eq!(num_bases, 559_023_700);
+    }
+
+}

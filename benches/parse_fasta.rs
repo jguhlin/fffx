@@ -30,7 +30,6 @@ fn criterion_benchmark(c: &mut Criterion) {
             for seq in fasta {
                 let seq = seq.unwrap();
                 num_bases += seq.sequence.as_ref().unwrap().len();
-
             }
         })
     });
