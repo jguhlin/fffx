@@ -11,9 +11,11 @@ fn criterion_benchmark(c: &mut Criterion) {
 
     group.bench_function("needletail_parse_fasta", |b| {
         b.iter(|| {
+            let mut num_bases = 0;
             let mut fasta = needletail::parse_fastx_reader(black_box(seq.as_bytes())).expect("Unable to parse");
             while let Some(r) = fasta.next() {
-                let _ = r.unwrap();
+                let seqrec = r.unwrap();
+                num_bases += seqrec.num_bases();
             }
         })
     });
@@ -23,9 +25,12 @@ fn criterion_benchmark(c: &mut Criterion) {
     
     group.bench_function("fffx_parse_fasta", |b| {
         b.iter(|| {
+            let mut num_bases = 0;
             let fasta = fffx::fasta::Fasta::from_buffer(black_box(&mut bufreader));
             for seq in fasta {
-                let _ = seq.unwrap();
+                let seq = seq.unwrap();
+                num_bases += seq.len();
+
             }
         })
     });
