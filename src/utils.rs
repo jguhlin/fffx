@@ -4,8 +4,8 @@ use simdutf8::basic::from_utf8;
 pub enum FileFormat {
     FASTA,
     FASTQ,
-    SFASTA,  // TODO
-    GFA,     // TODO
+    SFASTA, // TODO
+    GFA,    // TODO
 }
 
 #[allow(dead_code)]
@@ -59,19 +59,19 @@ mod tests {
     #[test]
     fn test_detect_file_format() {
         assert_eq!(
-            detect_file_format(b">seq1\nACTGCATCAGCATCGATCGACTACTGACAC"), 
+            detect_file_format(b">seq1\nACTGCATCAGCATCGATCGACTACTGACAC"),
             Ok(FileFormat::FASTA)
         );
         assert_eq!(
-            detect_file_format(b"@seq1\nACTGCATCAGCATCGATCGACTACTGACAC"), 
+            detect_file_format(b"@seq1\nACTGCATCAGCATCGATCGACTACTGACAC"),
             Ok(FileFormat::FASTQ)
         );
         assert_eq!(
-            detect_file_format(b"sfasta......................................................"), 
+            detect_file_format(b"sfasta......................................................"),
             Ok(FileFormat::SFASTA)
         );
         assert_eq!(
-            detect_file_format(b"seq1\nACTGCATCAGCATCGATCGACTACTGACAC"), 
+            detect_file_format(b"seq1\nACTGCATCAGCATCGATCGACTACTGACAC"),
             Err("Unknown file format")
         );
     }
@@ -79,11 +79,15 @@ mod tests {
     #[test]
     fn test_detect_compression() {
         assert_eq!(
-            detect_compression_format(&[0x1F, 0x8B, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03]),
+            detect_compression_format(&[
+                0x1F, 0x8B, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03
+            ]),
             Ok(CompressionType::GZIP)
         );
         assert_eq!(
-            detect_compression_format(&[0x42, 0x5A, 0x68, 0x39, 0x31, 0x41, 0x59, 0x26, 0x53, 0x59]),
+            detect_compression_format(&[
+                0x42, 0x5A, 0x68, 0x39, 0x31, 0x41, 0x59, 0x26, 0x53, 0x59
+            ]),
             Ok(CompressionType::BZIP2)
         );
         assert_eq!(
@@ -107,14 +111,16 @@ mod tests {
             Ok(CompressionType::ZSTD)
         );
         assert_eq!(
-            detect_compression_format(&[0x04, 0x22, 0x4D, 0x18, 0x04, 0x40, 0x40, 0x80, 0x80, 0x00]),
+            detect_compression_format(&[
+                0x04, 0x22, 0x4D, 0x18, 0x04, 0x40, 0x40, 0x80, 0x80, 0x00
+            ]),
             Ok(CompressionType::LZ4)
         );
         assert_eq!(
-            detect_compression_format(&[0x08, 0x22, 0x4D, 0x18, 0x04, 0x40, 0x40, 0x80, 0x80, 0x00]),
+            detect_compression_format(&[
+                0x08, 0x22, 0x4D, 0x18, 0x04, 0x40, 0x40, 0x80, 0x80, 0x00
+            ]),
             Ok(CompressionType::LZ4)
         );
-
     }
-
 }

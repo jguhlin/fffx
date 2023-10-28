@@ -1,7 +1,7 @@
 //! Yet another rust fasta/fastq parser, with a focus on speed and memory usage. Well fuzzed and performant-focused.
-//! 
+//!
 //! The basic ones to use are fasta, fastq submodules.
-//! 
+//!
 //! The ones under zerocopy:: use slightly less memory at the cost of discontiguous streams.
 
 pub mod fasta;

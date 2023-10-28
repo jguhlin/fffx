@@ -2,20 +2,30 @@
 
 use criterion::{black_box, criterion_group, criterion_main, Criterion};
 
-use fffx::*;
-
 fn criterion_benchmark(c: &mut Criterion) {
     let seq = include_str!("../bench_data/uniprot_sprot.fasta");
     let mut bufreader = std::io::BufReader::new(seq.as_bytes());
 
     let mut group = c.benchmark_group("Parse UniProt SwissProt FASTA File");
     group.throughput(criterion::Throughput::Bytes(seq.len() as u64));
-    group.bench_function("parse_fasta", |b| {
+    group.bench_function("fffx_parse_fasta", |b| {
         b.iter(|| {
             let fasta = fffx::fasta::Fasta::from_buffer(black_box(&mut bufreader));
             for seq in fasta {
                 let _ = seq.unwrap();
-            }})});
+            }
+        })
+    });
+
+    group.bench_function("needletail_parse_fasta", |b| {
+        b.iter(|| {
+            let mut fasta = needletail::parse_fastx_reader(black_box(&mut bufreader));
+            while let Some(r) = fastx_reader.next() {
+                let _ = r.unwrap();
+            }
+        })
+    });
+
     group.finish();
 }
 
