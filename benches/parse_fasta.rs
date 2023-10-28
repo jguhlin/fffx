@@ -8,13 +8,24 @@ fn criterion_benchmark(c: &mut Criterion) {
 
     group.throughput(criterion::Throughput::Bytes(file_size));
 
-    group.bench_function("needletail_parse_fasta", |b| {
+    group.bench_function("needletail_parse_fasta_bufreader", |b| {
         b.iter(|| {
             let fasta_file = std::fs::File::open("bench_data/uniprot_sprot.fasta").unwrap();
             let mut bufreader = std::io::BufReader::new(fasta_file);
 
             let mut num_bases = 0;
             let mut fasta = needletail::parse_fastx_reader(black_box(bufreader)).expect("Unable to parse");
+            while let Some(r) = fasta.next() {
+                let seqrec = r.unwrap();
+                num_bases += seqrec.num_bases();
+            }
+        })
+    });
+
+    group.bench_function("needletail_parse_fasta_file", |b| {
+        b.iter(|| {
+            let mut num_bases = 0;
+            let mut fasta = needletail::parse_fastx_file(black_box("bench_data/uniprot_sprot.fasta")).expect("Unable to parse");
             while let Some(r) = fasta.next() {
                 let seqrec = r.unwrap();
                 num_bases += seqrec.num_bases();
