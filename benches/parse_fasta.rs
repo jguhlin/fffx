@@ -14,7 +14,7 @@ fn criterion_benchmark(c: &mut Criterion) {
             let mut bufreader = std::io::BufReader::new(fasta_file);
 
             let mut num_bases = 0;
-            let mut fasta = needletail::parse_fastx_reader(black_box(seq.as_bytes())).expect("Unable to parse");
+            let mut fasta = needletail::parse_fastx_reader(black_box(bufreader)).expect("Unable to parse");
             while let Some(r) = fasta.next() {
                 let seqrec = r.unwrap();
                 num_bases += seqrec.num_bases();
@@ -55,7 +55,7 @@ fn criterion_benchmark(c: &mut Criterion) {
             let mut bufreader = std::io::BufReader::new(fasta_file);
 
             let mut num_bases = 0;
-            let mut fasta = needletail::parse_fastx_reader(black_box(seq.as_bytes())).expect("Unable to parse");
+            let mut fasta = needletail::parse_fastx_reader(black_box(bufreader)).expect("Unable to parse");
             while let Some(r) = fasta.next() {
                 let seqrec = r.unwrap();
                 num_bases += seqrec.num_bases();
