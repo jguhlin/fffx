@@ -2,8 +2,6 @@
 
 Well fuzzed though....
 
-You should use [needletail](https://crates.io/crates/needletail) though.
-
 ## Benchmark
 Use needletail! This is more a fun experiment to me.
 
