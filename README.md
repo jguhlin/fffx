@@ -2,6 +2,8 @@
 
 Well fuzzed though....
 
+You should use [needletail](https://crates.io/crates/needletail) though.
+
 ## Benchmark
 I don't know if this is correct or not, but it's fast enough. NOTE: This does not include I/O at all as that is outside the scope of this library (for now) and thus uniprot is included as a raw string in the binary.
 ``` 
